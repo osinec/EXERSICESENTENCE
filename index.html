@@ -4,7 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Упрости текст</title>
+
+  <!-- 🔒 Принудительный редирект на HTTPS (кроме localhost) -->
+  <script>
+    if (location.protocol === 'http:' && location.hostname !== 'localhost') {
+      location.replace('https://' + location.hostname + location.pathname + location.search);
+    }
+  </script>
+
+  <!-- 🔐 Защита от смешанного контента (mixed content) -->
+  <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self' https:; 
+                 font-src 'self' https://fonts.gstatic.com; 
+                 style-src 'self' 'unsafe-inline' https:; 
+                 script-src 'self' https:; 
+                 img-src 'self' data: https:; 
+                 connect-src 'self' https:;">
+
+  <!-- Шрифт с HTTPS -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --primary: #3498db;
@@ -53,7 +72,6 @@
       color: white;
       padding: 25px 30px;
       text-align: center;
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
     }
 
     h1 {
@@ -223,7 +241,6 @@
     function showRandomParagraph() {
       if (paragraphs.length === 0) return;
 
-      // Анимация: скрываем старый текст
       const originalEl = document.getElementById("originalText");
       originalEl.style.opacity = 0;
 
