@@ -312,7 +312,15 @@
                 showCurrentExercise();
             } catch (error) {
                 console.error('Ошибка загрузки упражнений:', error);
-                originalParagraph.textContent = 'Ошибка загрузки упражнений. Пожалуйста, проверьте наличие файла exercises.json';
+                originalParagraph.innerHTML = `
+                    <strong>Ошибка загрузки упражнений:</strong><br>
+                    ${error.message}<br><br>
+                    Проверьте:<br>
+                    1. Файл <code>exercises.json</code> существует и в той же папке, что и index.html<br>
+                    2. Вы запускаете сайт через сервер (не двойным кликом по HTML)<br>
+                    3. JSON корректен (все кавычки, запятые, скобки)
+                `;
+                originalParagraph.style.color = "#e74c3c";
             }
         }
 
@@ -329,7 +337,7 @@
             simplifiedText.focus();
         }
 
-        // Обновить прогресс
+        // Обновить прогресс (насколько короче текст)
         function updateProgress() {
             if (exercises.length === 0) return;
             
@@ -345,7 +353,7 @@
             progressBar.style.width = `${percent}%`;
             percentEl.textContent = `${percent}%`;
 
-            // Цвет прогресс-бара
+            // Цвет прогресс-бара в зависимости от степени упрощения
             if (percent < 20) {
                 progressBar.style.background = '#EF4444';
             } else if (percent < 40) {
@@ -370,7 +378,7 @@
         simplifiedText.addEventListener('input', updateProgress);
         nextBtn.addEventListener('click', nextExercise);
 
-        // Горячие клавиши
+        // Горячие клавиши: Ctrl + Enter → следующее упражнение
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'Enter') {
                 nextExercise();
