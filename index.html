@@ -205,6 +205,12 @@
             font-size: 0.875rem;
         }
 
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
@@ -232,7 +238,7 @@
 <body>
     <div class="container">
         <header>
-            <h1> Упражнения для упрощение</h1></h1>
+            <h1>Упражнения для упрощения</h1>
             <p class="subtitle">Формулируй ёмко и понятно</p>
         </header>
 
@@ -283,6 +289,7 @@
             </div>
         </div>
     </div>
+
     <script>
         // Элементы DOM
         const originalParagraph = document.getElementById('original-paragraph');
@@ -290,22 +297,33 @@
         const progressBar = document.getElementById('progress-bar');
         const percentEl = document.getElementById('simplification-percent');
         const nextBtn = document.getElementById('next-btn');
-        const copyBtn = document.getElementById('copy-btn');
 
-        // Коллекция текстов
-        const paragraphs = [
-            "В условиях современного информационного общества, характеризующегося экспоненциальным ростом объемов данных и их доступности, особую актуальность приобретает проблема когнитивной перегрузки, которая проявляется в снижении способности индивидов к концентрации внимания и критическому анализу получаемой информации вследствие постоянного воздействия множества раздражителей и необходимости параллельной обработки разнородных информационных потоков.",
-            "Анализ динамики изменения климатических параметров за последние десятилетия позволяет сделать вывод о наличии устойчивой тенденции к увеличению средней глобальной температуры, что, в свою очередь, приводит к целому каскаду взаимосвязанных последствий, включая таяние ледников, повышение уровня мирового океана, учащение экстремальных погодных явлений и нарушение сложившихся экологических балансов, что в совокупности создает серьезные вызовы для устойчивого развития человеческой цивилизации.",
-            "Современные исследования в области нейробиологии свидетельствуют о том, что процесс принятия решений представляет собой сложный механизм взаимодействия различных отделов головного мозга, в котором эмоциональные центры играют не менее важную роль, чем рациональные структуры, что противоречит традиционным представлениям о полностью осознанном и логически обоснованном характере человеческого выбора.",
-            "Развитие цифровых технологий и повсеместное распространение интернет-коммуникаций привели к кардинальной трансформации традиционных моделей социального взаимодействия, создав новые формы виртуальной социализации, которые, с одной стороны, обеспечивают беспрецедентные возможности для установления и поддержания контактов между географически удаленными индивидами, а с другой - порождают ряд психологических проблем, связанных с дефицитом живого общения, возникновением интернет-зависимости и размыванием границ между приватной и публичной сферами жизни современного человека.",
-            "Экономический анализ показывает, что внедрение инновационных технологий в производственные процессы, несмотря на значительные первоначальные инвестиции, в долгосрочной перспективе приводит к существенному повышению производительности труда, снижению себестоимости продукции и увеличению конкурентоспособности предприятий на глобальном рынке, что подтверждается статистическими данными по различным отраслям промышленности."
-        ];
+        let exercises = [];
+        let currentExerciseIndex = 0;
 
-        let currentParagraphIndex = 0;
+        // Загрузка упражнений из JSON-файла
+        async function loadExercises() {
+            try {
+                const response = await fetch('exercises.json');
+                if (!response.ok) {
+                    throw new Error('Не удалось загрузить упражнения');
+                }
+                exercises = await response.json();
+                showCurrentExercise();
+            } catch (error) {
+                console.error('Ошибка загрузки упражнений:', error);
+                originalParagraph.textContent = 'Ошибка загрузки упражнений. Пожалуйста, проверьте наличие файла exercises.json';
+            }
+        }
 
-        // Показать текущий параграф
-        function showCurrentParagraph() {
-            originalParagraph.textContent = paragraphs[currentParagraphIndex];
+        // Показать текущее упражнение
+        function showCurrentExercise() {
+            if (exercises.length === 0) {
+                originalParagraph.textContent = 'Нет доступных упражнений';
+                return;
+            }
+            
+            originalParagraph.textContent = exercises[currentExerciseIndex].text;
             simplifiedText.value = '';
             updateProgress();
             simplifiedText.focus();
@@ -313,7 +331,9 @@
 
         // Обновить прогресс
         function updateProgress() {
-            const originalText = paragraphs[currentParagraphIndex];
+            if (exercises.length === 0) return;
+            
+            const originalText = exercises[currentExerciseIndex].text;
             const simplifiedTextValue = simplifiedText.value;
             
             const originalLength = originalText.length;
@@ -335,48 +355,25 @@
             }
         }
 
-        // Следующий параграф
-        function nextParagraph() {
-            currentParagraphIndex = (currentParagraphIndex + 1) % paragraphs.length;
-            showCurrentParagraph();
-        }
-
-        // Копирование текста
-        function copyToClipboard() {
-            simplifiedText.select();
-            document.execCommand('copy');
+        // Следующее упражнение
+        function nextExercise() {
+            if (exercises.length === 0) return;
             
-            // Временное изменение кнопки
-            copyBtn.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 6L9 17l-5-5"></path>
-                </svg>
-                Скопировано!
-            `;
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = `
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                    Копировать
-                `;
-            }, 2000);
+            currentExerciseIndex = (currentExerciseIndex + 1) % exercises.length;
+            showCurrentExercise();
         }
 
         // Инициализация
-        showCurrentParagraph();
+        loadExercises();
 
         // События
         simplifiedText.addEventListener('input', updateProgress);
-        nextBtn.addEventListener('click', nextParagraph);
-        copyBtn.addEventListener('click', copyToClipboard);
+        nextBtn.addEventListener('click', nextExercise);
 
         // Горячие клавиши
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'Enter') {
-                nextParagraph();
+                nextExercise();
             }
         });
     </script>
