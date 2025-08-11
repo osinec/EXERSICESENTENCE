@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <!-- Весь предыдущий код остается без изменений до раздела <script> -->
-    <script>
-        // Элементы DOM
-        const originalParagraph = document.getElementById('original-paragraph');
-        const simplifiedText = document.getElementById('simplified-text');
-        const progressBar = document.getElementById('progress-bar');
-        const percentEl = document.getElementById('simplification-percent');
-        const nextBtn = document.getElementById('next-btn');
 
-        // Коллекция из 50 сложных текстов для упрощения
-        const paragraphs = [
             {
                 "text": "В современном мире, где скорость передачи информации достигла невероятных высот, человеческое сознание оказывается перегруженным постоянным потоком разрозненных данных, что неизбежно приводит к снижению способности к глубокому анализу и осмысленному восприятию действительности."
             },
@@ -164,59 +151,4 @@
             }
         ];
 
-        let currentParagraphIndex = 0;
-
-        // Показать текущий параграф
-        function showCurrentParagraph() {
-            originalParagraph.textContent = paragraphs[currentParagraphIndex].text;
-            simplifiedText.value = '';
-            updateProgress();
-            simplifiedText.focus();
-        }
-
-        // Обновить прогресс
-        function updateProgress() {
-            const originalText = paragraphs[currentParagraphIndex].text;
-            const simplifiedTextValue = simplifiedText.value;
-            
-            const originalLength = originalText.length;
-            const simplifiedLength = simplifiedTextValue.length;
-            const percent = simplifiedLength > 0 
-                ? Math.max(0, Math.round((1 - simplifiedLength / originalLength) * 100))
-                : 0;
-
-            progressBar.style.width = `${percent}%`;
-            percentEl.textContent = `${percent}%`;
-
-            // Цвет прогресс-бара
-            if (percent < 20) {
-                progressBar.style.background = '#EF4444';
-            } else if (percent < 40) {
-                progressBar.style.background = '#F59E0B';
-            } else {
-                progressBar.style.background = 'linear-gradient(90deg, var(--primary), var(--secondary))';
-            }
-        }
-
-        // Следующий параграф
-        function nextParagraph() {
-            currentParagraphIndex = (currentParagraphIndex + 1) % paragraphs.length;
-            showCurrentParagraph();
-        }
-
-        // Инициализация
-        showCurrentParagraph();
-
-        // События
-        simplifiedText.addEventListener('input', updateProgress);
-        nextBtn.addEventListener('click', nextParagraph);
-
-        // Горячие клавиши
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'Enter') {
-                nextParagraph();
-            }
-        });
-    </script>
-</body>
-</html>
+       
