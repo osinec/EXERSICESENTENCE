@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Элегантный упроститель текста</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Вертикальный упроститель текста</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6C5CE7;
-            --primary-light: #A29BFE;
-            --secondary: #00CEc9;
-            --dark: #2D3436;
-            --light: #F5F6FA;
-            --gray: #636E72;
-            --success: #00B894;
-            --warning: #FDCB6E;
-            --danger: #E17055;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            --shadow-md: 0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 14px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.1);
-            --transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+            --primary: #6366F1;
+            --primary-light: #818CF8;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -30,365 +26,269 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
             color: var(--dark);
-            min-height: 100vh;
             line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
         }
 
         header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
             text-align: center;
-            margin-bottom: 3rem;
-            animation: fadeInDown 1s;
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
         }
 
-        .app-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            animation: fadeIn 1.5s;
-        }
-
-        @media (max-width: 768px) {
-            .app-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .text-panel {
-            background: white;
-            border-radius: 16px;
+        .content {
             padding: 2rem;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            height: 100%;
         }
 
-        .text-panel:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-5px);
+        .text-section {
+            margin-bottom: 2rem;
         }
 
-        .panel-header {
+        .section-title {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--dark);
         }
 
-        .panel-icon {
-            width: 40px;
-            height: 40px;
+        .section-title .icon {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        .original .panel-icon {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-        }
-
-        .simplified .panel-icon {
-            background: linear-gradient(135deg, var(--secondary), var(--success));
-        }
-
-        .panel-title {
-            font-weight: 600;
-            font-size: 1.3rem;
+            margin-right: 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
         }
 
         .original-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--dark);
-            white-space: pre-wrap;
-            background: rgba(108, 92, 231, 0.03);
+            background: var(--light);
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             border-left: 4px solid var(--primary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
 
         textarea {
             width: 100%;
-            min-height: 300px;
+            min-height: 200px;
             padding: 1.5rem;
-            border: none;
-            border-radius: 8px;
+            border: 2px solid #E5E7EB;
+            border-radius: var(--border-radius);
             font-family: inherit;
             font-size: 1rem;
-            line-height: 1.8;
+            line-height: 1.7;
             resize: none;
-            background: rgba(0, 206, 201, 0.03);
-            border-left: 4px solid var(--secondary);
             transition: var(--transition);
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
         }
 
         textarea:focus {
             outline: none;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
-        .stats-container {
-            margin-top: 2rem;
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            animation: fadeInUp 1s;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 1rem 0;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
         }
 
         .progress-container {
-            width: 100%;
+            flex: 1;
             height: 8px;
-            background: #f1f1f1;
+            background: #E5E7EB;
             border-radius: 4px;
-            margin-top: 1rem;
+            margin: 0 1rem;
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
             transition: width 0.5s ease;
+        }
+
+        .percent {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            min-width: 60px;
+            text-align: right;
         }
 
         .controls {
             display: flex;
-            justify-content: center;
-            margin-top: 3rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
             gap: 1rem;
         }
 
         .btn {
-            padding: 0.8rem 2rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 50px;
+            border-radius: var(--border-radius);
             font-family: inherit;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-sm);
         }
 
         .btn-primary {
-            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            background: var(--primary);
             color: white;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
+            border: 1px solid var(--gray);
+            color: var(--gray);
         }
 
         .btn-outline:hover {
-            background: rgba(108, 92, 231, 0.1);
+            border-color: var(--dark);
+            color: var(--dark);
         }
 
-        .btn-icon {
+        .btn svg {
             margin-right: 8px;
-            font-size: 1.2rem;
         }
 
         footer {
             text-align: center;
-            margin-top: 4rem;
-            padding: 2rem;
+            margin-top: 3rem;
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
         }
 
-        /* Анимации */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .floating {
-            animation: float 3s ease-in-out infinite;
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            header {
+                padding: 1.5rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Элегантный упроститель</h1>
-            <p class="subtitle">Превращайте сложные тексты в ясные и понятные формулировки</p>
+            <h1>Упроститель текста</h1>
+            <p class="subtitle">Сделайте сложное простым и понятным</p>
         </header>
 
-        <div class="app-container">
-            <div class="text-panel original">
-                <div class="panel-header">
-                    <div class="panel-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="content">
+            <div class="text-section">
+                <div class="section-title">
+                    <div class="icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                         </svg>
                     </div>
-                    <h2 class="panel-title">Исходный текст</h2>
+                    <span>Исходный текст</span>
                 </div>
                 <div class="original-text" id="original-paragraph">
                     Загрузка текста...
                 </div>
             </div>
 
-            <div class="text-panel simplified">
-                <div class="panel-header">
-                    <div class="panel-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="text-section">
+                <div class="section-title">
+                    <div class="icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         </svg>
                     </div>
-                    <h2 class="panel-title">Ваш вариант</h2>
+                    <span>Ваш упрощенный вариант</span>
                 </div>
-                <textarea id="simplified-text" placeholder="Напишите здесь упрощённую версию текста..."></textarea>
+                <textarea id="simplified-text" placeholder="Введите здесь упрощенную версию текста..."></textarea>
             </div>
-        </div>
 
-        <div class="stats-container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Символов в оригинале</div>
-                    <div class="stat-value" id="original-length">0</div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
+            <div class="stats">
+                <span>Упрощение:</span>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Символов в вашем варианте</div>
-                    <div class="stat-value" id="simplified-length">0</div>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="simplified-progress" style="width: 0%"></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Процент упрощения</div>
-                    <div class="stat-value" id="simplification-percent">0%</div>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="percent-progress" style="width: 0%"></div>
-                    </div>
-                </div>
+                <span class="percent" id="simplification-percent">0%</span>
             </div>
-        </div>
 
-        <div class="controls">
-            <button class="btn btn-primary" id="next-btn">
-                <span class="btn-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="controls">
+                <button class="btn btn-primary" id="next-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="13 17 18 12 13 7"></polyline>
                         <polyline points="6 17 11 12 6 7"></polyline>
                     </svg>
-                </span>
-                Следующий текст
-            </button>
-            <button class="btn btn-outline" id="copy-btn">
-                <span class="btn-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                </span>
-                Копировать
-            </button>
+                    Следующий
+                </button>
+            </div>
         </div>
     </div>
-
-    <footer>
-        <p>© 2023 Элегантный упроститель текста | Сделано с ♥ для ясного общения</p>
-    </footer>
-
     <script>
         // Элементы DOM
         const originalParagraph = document.getElementById('original-paragraph');
         const simplifiedText = document.getElementById('simplified-text');
-        const originalLengthEl = document.getElementById('original-length');
-        const simplifiedLengthEl = document.getElementById('simplified-length');
-        const simplificationPercentEl = document.getElementById('simplification-percent');
-        const simplifiedProgress = document.getElementById('simplified-progress');
-        const percentProgress = document.getElementById('percent-progress');
+        const progressBar = document.getElementById('progress-bar');
+        const percentEl = document.getElementById('simplification-percent');
         const nextBtn = document.getElementById('next-btn');
         const copyBtn = document.getElementById('copy-btn');
 
@@ -397,8 +297,8 @@
             "В условиях современного информационного общества, характеризующегося экспоненциальным ростом объемов данных и их доступности, особую актуальность приобретает проблема когнитивной перегрузки, которая проявляется в снижении способности индивидов к концентрации внимания и критическому анализу получаемой информации вследствие постоянного воздействия множества раздражителей и необходимости параллельной обработки разнородных информационных потоков.",
             "Анализ динамики изменения климатических параметров за последние десятилетия позволяет сделать вывод о наличии устойчивой тенденции к увеличению средней глобальной температуры, что, в свою очередь, приводит к целому каскаду взаимосвязанных последствий, включая таяние ледников, повышение уровня мирового океана, учащение экстремальных погодных явлений и нарушение сложившихся экологических балансов, что в совокупности создает серьезные вызовы для устойчивого развития человеческой цивилизации.",
             "Современные исследования в области нейробиологии свидетельствуют о том, что процесс принятия решений представляет собой сложный механизм взаимодействия различных отделов головного мозга, в котором эмоциональные центры играют не менее важную роль, чем рациональные структуры, что противоречит традиционным представлениям о полностью осознанном и логически обоснованном характере человеческого выбора.",
-            "Экономический анализ показывает, что внедрение инновационных технологий в производственные процессы, несмотря на значительные первоначальные инвестиции, в долгосрочной перспективе приводит к существенному повышению производительности труда, снижению себестоимости продукции и увеличению конкурентоспособности предприятий на глобальном рынке, что подтверждается статистическими данными по различным отраслям промышленности.",
-            "Развитие цифровых технологий и повсеместное распространение интернет-коммуникаций привели к кардинальной трансформации традиционных моделей социального взаимодействия, создав новые формы виртуальной социализации, которые, с одной стороны, обеспечивают беспрецедентные возможности для установления и поддержания контактов между географически удаленными индивидами, а с другой - порождают ряд психологических проблем, связанных с дефицитом живого общения, возникновением интернет-зависимости и размыванием границ между приватной и публичной сферами жизни современного человека."
+            "Развитие цифровых технологий и повсеместное распространение интернет-коммуникаций привели к кардинальной трансформации традиционных моделей социального взаимодействия, создав новые формы виртуальной социализации, которые, с одной стороны, обеспечивают беспрецедентные возможности для установления и поддержания контактов между географически удаленными индивидами, а с другой - порождают ряд психологических проблем, связанных с дефицитом живого общения, возникновением интернет-зависимости и размыванием границ между приватной и публичной сферами жизни современного человека.",
+            "Экономический анализ показывает, что внедрение инновационных технологий в производственные процессы, несмотря на значительные первоначальные инвестиции, в долгосрочной перспективе приводит к существенному повышению производительности труда, снижению себестоимости продукции и увеличению конкурентоспособности предприятий на глобальном рынке, что подтверждается статистическими данными по различным отраслям промышленности."
         ];
 
         let currentParagraphIndex = 0;
@@ -407,12 +307,12 @@
         function showCurrentParagraph() {
             originalParagraph.textContent = paragraphs[currentParagraphIndex];
             simplifiedText.value = '';
-            updateStats();
+            updateProgress();
             simplifiedText.focus();
         }
 
-        // Обновить статистику
-        function updateStats() {
+        // Обновить прогресс
+        function updateProgress() {
             const originalText = paragraphs[currentParagraphIndex];
             const simplifiedTextValue = simplifiedText.value;
             
@@ -422,21 +322,16 @@
                 ? Math.max(0, Math.round((1 - simplifiedLength / originalLength) * 100))
                 : 0;
 
-            originalLengthEl.textContent = originalLength;
-            simplifiedLengthEl.textContent = simplifiedLength;
-            simplificationPercentEl.textContent = percent + '%';
+            progressBar.style.width = `${percent}%`;
+            percentEl.textContent = `${percent}%`;
 
-            // Анимация прогресс-баров
-            simplifiedProgress.style.width = `${Math.min(100, (simplifiedLength / originalLength) * 100)}%`;
-            percentProgress.style.width = `${percent}%`;
-
-            // Цвет прогресс-бара в зависимости от процента упрощения
+            // Цвет прогресс-бара
             if (percent < 20) {
-                percentProgress.style.background = 'linear-gradient(to right, #ff7675, #d63031)';
+                progressBar.style.background = '#EF4444';
             } else if (percent < 40) {
-                percentProgress.style.background = 'linear-gradient(to right, #fdcb6e, #e17055)';
+                progressBar.style.background = '#F59E0B';
             } else {
-                percentProgress.style.background = 'linear-gradient(to right, var(--primary), var(--secondary))';
+                progressBar.style.background = 'linear-gradient(90deg, var(--primary), var(--secondary))';
             }
         }
 
@@ -444,12 +339,6 @@
         function nextParagraph() {
             currentParagraphIndex = (currentParagraphIndex + 1) % paragraphs.length;
             showCurrentParagraph();
-            
-            // Анимация
-            document.querySelector('.app-container').classList.add('animate__animated', 'animate__fadeIn');
-            setTimeout(() => {
-                document.querySelector('.app-container').classList.remove('animate__animated', 'animate__fadeIn');
-            }, 1000);
         }
 
         // Копирование текста
@@ -457,24 +346,20 @@
             simplifiedText.select();
             document.execCommand('copy');
             
-            // Временное изменение стиля кнопки
+            // Временное изменение кнопки
             copyBtn.innerHTML = `
-                <span class="btn-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 6L9 17l-5-5"></path>
-                    </svg>
-                </span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17l-5-5"></path>
+                </svg>
                 Скопировано!
             `;
             
             setTimeout(() => {
                 copyBtn.innerHTML = `
-                    <span class="btn-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                    </span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
                     Копировать
                 `;
             }, 2000);
@@ -484,7 +369,7 @@
         showCurrentParagraph();
 
         // События
-        simplifiedText.addEventListener('input', updateStats);
+        simplifiedText.addEventListener('input', updateProgress);
         nextBtn.addEventListener('click', nextParagraph);
         copyBtn.addEventListener('click', copyToClipboard);
 
